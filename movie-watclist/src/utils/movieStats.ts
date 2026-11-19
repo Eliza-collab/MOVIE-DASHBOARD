@@ -11,23 +11,25 @@ export interface MovieStats {
 export function calculateMovieStats(movies: Movie[]): MovieStats {
   const totalMovies = movies.length;
 
-  // Assumption: status = true means Watched.
+  // Count movies marked as watched.
   const watchedMovies = movies.filter(
     (movie) => movie.status === true
   ).length;
 
+  // Calculate movies that are still waiting to be watched.
   const toWatchMovies = totalMovies - watchedMovies;
 
-  // Ignore invalid or missing ratings when calculating the average.
+  // Include only valid ratings between 0 and 10.
   const ratedMovies = movies.filter(
     (movie) =>
+      typeof movie.rating === 'number' &&
       Number.isFinite(movie.rating) &&
       movie.rating >= 0 &&
       movie.rating <= 10
   );
 
   const totalRating = ratedMovies.reduce(
-    (sum, movie) => sum + movie.rating,
+    (sum, movie) => sum + (movie.rating ?? 0),
     0
   );
 
