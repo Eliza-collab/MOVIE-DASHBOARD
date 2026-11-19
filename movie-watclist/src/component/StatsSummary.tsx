@@ -1,6 +1,6 @@
+import './StatsSummary.css';
 import React from 'react';
 import { calculateMovieStats,  type Movie } from '../utils/movieStats';
-
 // 1. Define the props this component expects to receive from its parent (e.g., App.tsx)
 interface StatsSummaryProps {
   movies: Movie[];
